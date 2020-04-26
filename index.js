@@ -2,6 +2,7 @@ const config = require('./common/config/env.config.js');
 
 const express = require('express');
 const app = express();
+var path = require('path');
 const bodyParser = require('body-parser');
 
 const AuthorizationRouter = require('./authorization/routes.config');
@@ -23,7 +24,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
-
+app.use(express.static(path.join(__dirname,'public')));
 
 app.listen(config.port, function () {
     console.log('app listening at port %s', config.port);
